@@ -1,0 +1,8 @@
+2009-11-21  bigclean  <zhengjujie@gmail.com>
+
+	* Makefile: add echo more functional,optimze output message,but to
+	be tested in windows.
+
+	* pwm-doxyfile: set quiet mode yes,only display error messages
+	when generating documents.
+
