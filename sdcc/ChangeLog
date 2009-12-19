@@ -1,3 +1,7 @@
+2009-12-19  bigclean  <zhengjujie@gmail.com>
+
+	* Makefile: do some minor changes,compatible with gentoo.
+
 2009-11-21  bigclean  <zhengjujie@gmail.com>
 
 	* Makefile: add echo more functional,optimze output message,but to
