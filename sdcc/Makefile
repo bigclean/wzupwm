@@ -6,9 +6,9 @@
 ## Maintainer: 
 ## Created: Sat Nov 21 02:12:25 2009 (-0500)
 ## Version: 
-## Last-Updated: Sat Nov 21 02:15:46 2009 (-0500)
+## Last-Updated: Sat Dec 19 16:01:30 2009 (+0800)
 ##           By: bigclean
-##     Update #: 3
+##     Update #: 8
 ## URL: 
 ## Keywords: 
 ## Compatibility: 
@@ -28,6 +28,9 @@
 ######################################################################
 ## 
 ### Change log:
+## 19-Dec-2009    bigclean  
+##    Last-Updated: Sat Dec 19 15:59:38 2009 (+0800) #7 (bigclean)
+##    do some minor changes to Makefile,now compatible with gentoo.
 ## 21-Nov-2009    bigclean  
 ##    Last-Updated: Sat Nov 21 02:14:37 2009 (-0500) #2 (bigclean)
 ##    optimize echo output messages,but to be tested under windows.
@@ -79,15 +82,18 @@ DOXYGEN  := doxygen
 DOXYFILE := pwm-doxyfile 
 RM       := rm -rf
 
+# echo colorize output
+HIGH     :=\033[7m
+LIGHT    :=\033[0m
 .PHONY: all hex clean rebuild doc
 
 all: hex doc
 
 hex: $(HEX)
 	@echo "---------------------------------------------------------------------"
-	@echo "\t\033[7m HEX files is generated,now you can burn it!\033[0m"
+	@echo -e "\t$(HIGH) HEX files is generated,now you can burn it!$(LIGHT)"
 	@echo "---------------------------------------------------------------------"
-	@echo "\n"
+	@echo -e "\n"
 
 $(HEX):$(IHEX)
 	packihx $(IHEX) > $(HEX)
@@ -100,7 +106,7 @@ $(IHEX): $(OBJS)
 
 clean:
 	@echo "---------------------------------------------------------------------"
-	@echo "\t\033[7m cleaning started\033[0m"
+	@echo -e "\t$(HIGH) cleaning started. $(LIGHT)"
 	-$(RM)  *.rel
 	-$(RM)  *.asm
 	-$(RM)  *.lst
@@ -112,24 +118,24 @@ clean:
 	-$(RM)  *.hex
 	-$(RM)  *.rst
 	-$(RM)  doc
-	@echo "\t\033[7m cleaning finished \033[0m"
+	@echo -e "\t$(HIGH) cleaning finished $(LIGHT)"
 	@echo "---------------------------------------------------------------------"
-	@echo "\n"
+	@echo -e "\n"
 
 rebuild:clean all
 	@echo "---------------------------------------------------------------------"
-	@echo "\n"
-	@echo "\t\033[7m rebuild finished \033[0m"
+	@echo -e "\n"
+	@echo -e "\t$(HIGH) rebuild finished $(LIGHT)"
 	@echo "---------------------------------------------------------------------"
-	@echo "\n"
+	@echo -e "\n"
 
 doc:
 	@echo "---------------------------------------------------------------------"
-	@echo "\t\033[7m generate documentation using doxygen and graphviz \033[0m"
-	@echo "\t\033[7m you must install doxygen and graphivz \033[0m"
+	@echo -e "\t$(HIGH) generate documentation using doxygen and graphviz $(LIGHT)"
+	@echo -e "\t$(HIGH) you must install doxygen and graphivz $(LIGHT)"
 	-$(DOXYGEN) $(DOXYFILE)
-	@echo "\t\033[7m html documentation generating finished \033[0m"
-	@echo "---------------------------------------------------------------------"
+	@echo -e "\t$(HIGH) html documentation generating finished $(LIGHT)"
+	@echo -e "---------------------------------------------------------------------"
 
 ######################################################################
 ### Makefile ends here
