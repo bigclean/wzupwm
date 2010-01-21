@@ -4,11 +4,11 @@ DC Shunt Motors
 Electrical Diagram of a Shunt Motor
 -----------------------------------
 
-The shunt motor is different from the series motor in that the field winding is connected in parallel with the armature instead of in series. You should remember from basic electrical theory that a parallel circuit is often referred to as a shunt. Since the field winding is placed in parallel with the armature, it is called a shunt winding and the motor is called a shunt motor. Figure 12-13 shows a diagram of a shunt motor. Notice that the field terminals are marked Fl and F2, and the armature terminals are marked Al andA2. You should notice in this diagram that the shunt field is represented with multiple turns using a thin line.
+The shunt motor is different from the series motor in that the field winding is connected in parallel with the armature instead of in series. You should remember from basic electrical theory that a parallel circuit is often referred to as a shunt. Since the field winding is placed in parallel with the armature, it is called a shunt winding and the motor is called a shunt motor. Figure 12-13 shows a diagram of a shunt motor. Notice that the field terminals are marked Fl and F2, and the armature terminals are marked Al and A2. You should notice in this diagram that the shunt field is represented with multiple turns using a thin line.
 
-![figure12-13](http://zone.ni.com/cms/images/devzone/ph/3fc63253197.gif "FIGURE 12-13 Diagram of DC shunt motor. Notice the shunt coil is identified as a coil of fine wire with many turns that is connected in parallel shunt with the armature.")
+![fig12-13](http://zone.ni.com/cms/images/devzone/ph/3fc63253197.gif "FIGURE 12-13 Diagram of DC shunt motor. Notice the shunt coil is identified as a coil of fine wire with many turns that is connected in parallel shunt with the armature.")
 
-![fig12-14](http://zone.ni.com/cms/images/devzone/ph/3fc63253198.gif "FIGURE12-14 Typical DC shunt motor. These motors are available in a variety of sizes. This motor is a 1 hp approximately 8 in. tall.")
+![fig12-14](http://zone.ni.com/cms/images/devzone/ph/3fc63253198.gif "FIGURE 12-14 Typical DC shunt motor. These motors are available in a variety of sizes. This motor is a 1 hp approximately 8 in. tall.")
 
 The shunt winding is made of small-gauge wire with many turns on the coil. Since the wire is so small, the coil can have thousands of turns and still fit in the slots. The small-gauge wire cannot handle as much current as the heavy-gauge wire in the series field, but since this coil has many more turns of wire, it can still produce a very strong magnetic field. Figure 12-14 shows a picture of a DC shunt motor.
 
