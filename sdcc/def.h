@@ -6,9 +6,9 @@
  * Maintainer: 
  * Created: Sat Nov 21 02:22:51 2009 (-0500)
  * Version: 
- * Last-Updated: Sat Nov 21 02:23:48 2009 (-0500)
+ * Last-Updated: Sat Feb  6 15:06:33 2010 (-0500)
  *           By: bigclean
- *     Update #: 1
+ *     Update #: 5
  * URL: 
  * Keywords: 
  * Compatibility: 
@@ -22,7 +22,10 @@
  */
 
 /* Change log:
- * 
+ * 6-Feb-2010    bigclean  
+ *    Last-Updated: Sat Feb  6 14:57:55 2010 (-0500) #3 (bigclean)
+ *    1. change doxygen syntax from QT to standard JavaDoc
+ *    2. offical use typedef to replace #define
  * 
  */
 
@@ -45,17 +48,15 @@
 /* Code: */
 
 
-/*!
- * \file def.h 
- * \brief data type definnition
- * \author Fadi Wu, Bin Chen, Jujie Zheng 
- * \date 2009-11-16
+/**
+ * @file def.h 
+ * @brief data type definnition
+ * @author Jujie Zheng 
+ * @date 20010-2-6
  */
 #ifndef __DEF_H_
 #define __DEF_H_
-//#define uchar unsigned char;
-//#define uint unsigned int
-
+// typedef is better than #define 
 typedef unsigned char uchar; /*!< unsigned char */
 typedef unsigned int uint; /*!< unsigned int */
 #endif

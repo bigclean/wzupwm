@@ -1,3 +1,10 @@
+2010-02-06  bigclean  <zhengjujie@gmail.com>
+
+	* pwm.c: change doxygen syntax from QT to JavaDoc.
+	* pwm.h: same as above.
+	* def.h: same as above and now using typedef to replace #define
+	          to define types
+
 2009-12-19  bigclean  <zhengjujie@gmail.com>
 
 	* Makefile: do some minor changes,compatible with gentoo.

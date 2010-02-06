@@ -6,9 +6,9 @@
  * Maintainer: 
  * Created: Sat Nov 21 02:22:30 2009 (-0500)
  * Version: 
- * Last-Updated: Sat Nov 21 02:22:38 2009 (-0500)
+ * Last-Updated: Sat Feb  6 15:04:15 2010 (-0500)
  *           By: bigclean
- *     Update #: 1
+ *     Update #: 6
  * URL: 
  * Keywords: 
  * Compatibility: 
@@ -22,6 +22,9 @@
  */
 
 /* Change log:
+ * 6-Feb-2010    bigclean  
+ *    Last-Updated: Sat Feb  6 15:02:56 2010 (-0500) #5 (bigclean)
+ *    change doxygen syntax from QT to standard JavaDoc
  * 
  * 
  */
@@ -45,11 +48,11 @@
 /* Code: */
 
 
-/*! 
- * \file pwm.c
- * \brief PWM head file
- * \author Jujie Zheng
- * \date 2009-11-16
+/**
+ * @file pwm.c
+ * @brief PWM head file
+ * @author Jujie Zheng
+ * @date 2010-2-6
  */
  
 #ifndef __PWM_H_
@@ -78,73 +81,74 @@ __sbit __at (0x82) IN3;      /*!< Port P0 ^ 2 */
 __sbit __at (0x83) IN4;      /*!< Port P0 ^ 3 */
 
 /* function prototype */
-/*! 
- * \fn OSCILLATOR_Init()
- * \brief set C8051F410 oscillator frequency 
- * \return none
+
+/** 
+ * @fn OSCILLATOR_Init()
+ * @brief set C8051F410 oscillator frequency 
+ * @return none
  */
 void OSCILLATOR_Init();
 
-/*!
- * \fn PORT_Init()
- * \brief init C8051F410 ports
- * \return none
+/**
+ * @fn PORT_Init()
+ * @brief init C8051F410 ports
+ * @return none
  */
 void PORT_Init();
 
-/*!
- * \fn PCA0_Init()
- * \brief initiate PCA0 ready for PWM generation
- * \return none
+/**
+ * @fn PCA0_Init()
+ * @brief initiate PCA0 ready for PWM generation
+ * @return none
  */
 
 void PCA0_Init();
 
-/*!
- * \fn timer_0_1_init
- * \brief  initite TIME0 and TIME1 used as counter
- * \return none
+/**
+ * @fn timer_0_1_init
+ * @brief  initiate TIME0 and TIME1 used as counter
+ * @return none
  */
 void timer_0_1_init();
 
-/*!
- * \fn timer2_init
- * \brief initiate TIME2
- * \return none 
+/**
+ * @fn timer2_init
+ * @brief initiate TIME2
+ * @return none 
  */
 void timer2_init();
 
-/*!
- * \fn set_pwm_0_duty_cycle(uint n)
- * \brief  set PCA1 output PWM duty cycle.
- * \param n a integer in [1,100],which stands for duty cycle
- * \return void
+/**
+ * @fn set_pwm_0_duty_cycle(uint n)
+ * @brief  set PCA1 output PWM duty cycle.
+ * @param n a integer in [1,100],which stands for duty cycle
+ * @return void
  * exam : n=50 mens the PCA0 pwm duty cycle is 50%, n=40 means the PCA0 output PWM duty cycle is 40%
  */
 void set_pwm_0_duty_cycle(uint n);
 
-/*! 
- * \fn set_pwm_1_duty_cycle(uint n)
- * \brief set PCA1 output PWM duty cycle.
- * \param n a integer in [1,1000],which stands for duty cycle n/1000;
- * \return void
+/** 
+ * @fn set_pwm_1_duty_cycle(uint n)
+ * @brief set PCA1 output PWM duty cycle.
+ * @param n a integer in [1,1000],which stands for duty cycle n/1000;
+ * @return void
  * exam n=50 mens the PCA0 pwm duty cycle is 50%, n=40 means the PCA0 output PWM duty cycle is 40%
  */
 void set_pwm_1_duty_cycle(uint n);
 
-/*!
- * \fn set_wheel_0_speed(uchar n)
- * \brief set wheel0 speed
- * \param n speed
- * \return none
+/**
+ * @fn set_wheel_0_speed(uchar n)
+ * @brief set wheel0 speed
+ * @param n speed
+ * @return none
  */
 void set_wheel_0_speed(uchar n);
 
-/*!
- * \fn set_wheel_1_speed(uchar n)
- * \brief set wheel1 speed
- * \param n speed
- * \return none 
+/**
+ * @fn set_wheel_1_speed(uchar n)
+ * @brief set wheel1 speed
+ * @param n speed
+ * @return none 
  */
 void set_wheel_1_speed(uchar n);
 
