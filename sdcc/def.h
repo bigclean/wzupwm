@@ -6,9 +6,9 @@
  * Maintainer: 
  * Created: Sat Nov 21 02:22:51 2009 (-0500)
  * Version: 
- * Last-Updated: Sat Feb  6 15:06:33 2010 (-0500)
+ * Last-Updated: Mon Feb  8 22:09:48 2010 (-0500)
  *           By: bigclean
- *     Update #: 5
+ *     Update #: 7
  * URL: 
  * Keywords: 
  * Compatibility: 
@@ -22,6 +22,9 @@
  */
 
 /* Change log:
+ * 8-Feb-2010    bigclean  
+ *    Last-Updated: Sat Feb  6 15:06:33 2010 (-0500) #5 (bigclean)
+ *    define new types to replace old ones(unit_t type to be comsummated)
  * 6-Feb-2010    bigclean  
  *    Last-Updated: Sat Feb  6 14:57:55 2010 (-0500) #3 (bigclean)
  *    1. change doxygen syntax from QT to standard JavaDoc
@@ -50,15 +53,18 @@
 
 /**
  * @file def.h 
- * @brief data type definnition
+ * @brief data type definition
  * @author Jujie Zheng 
- * @date 20010-2-6
+ * @date 20010-2-8
  */
 #ifndef __DEF_H_
 #define __DEF_H_
-// typedef is better than #define 
-typedef unsigned char uchar; /*!< unsigned char */
-typedef unsigned int uint; /*!< unsigned int */
+
+// \note typedef is much better than #define to define new types
+// prefered type defintions style
+typedef unsigned int uint_t;    /*! 8 bits unsigned int */
+typedef unsigned char uchar_t;  /*! 8 bits unsigned char */
+
 #endif
 
 /* def.h ends here */

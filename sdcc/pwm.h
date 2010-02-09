@@ -138,38 +138,38 @@ void timer_0_1_init();
 void timer2_init();
 
 /**
- * @fn set_pwm_0_duty_cycle(uint n)
+ * @fn set_pwm_0_duty_cycle(uint_t n)
  * @brief  set PCA1 output PWM duty cycle.
  * @param n a integer in [1,100],which stands for duty cycle
  * @return void
  * exam : n=50 mens the PCA0 pwm duty cycle is 50%, n=40 means the PCA0 output PWM duty cycle is 40%
  */
-void set_pwm_0_duty_cycle(uint n);
+void set_pwm_0_duty_cycle(uint_t n);
 
 /** 
- * @fn set_pwm_1_duty_cycle(uint n)
+ * @fn set_pwm_1_duty_cycle(uint_t n)
  * @brief set PCA1 output PWM duty cycle.
  * @param n a integer in [1,1000],which stands for duty cycle n/1000;
  * @return void
  * exam n=50 mens the PCA0 pwm duty cycle is 50%, n=40 means the PCA0 output PWM duty cycle is 40%
  */
-void set_pwm_1_duty_cycle(uint n);
+void set_pwm_1_duty_cycle(uint_t n);
 
 /**
- * @fn set_wheel_0_speed(uchar n)
+ * @fn set_wheel_0_speed(uchar_t n)
  * @brief set wheel0 speed
  * @param n speed
  * @return none
  */
-void set_wheel_0_speed(uchar n);
+void set_wheel_0_speed(uchar_t n);
 
 /**
- * @fn set_wheel_1_speed(uchar n)
+ * @fn set_wheel_1_speed(uchar_t n)
  * @brief set wheel1 speed
  * @param n speed
  * @return none 
  */
-void set_wheel_1_speed(uchar n);
+void set_wheel_1_speed(uchar_t n);
 
 #endif
 

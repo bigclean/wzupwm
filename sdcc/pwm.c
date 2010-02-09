@@ -57,13 +57,13 @@
 #include "pwm.h"
 // global variables
 // wheel 0 and 1 speed
-uint wheel_0_speed;          /*!< wheel 0 speed */
-uint wheel_1_speed;          /*!< wheel 1 speed */
+uint_t wheel_0_speed;          /*!< wheel 0 speed */
+uint_t wheel_1_speed;          /*!< wheel 1 speed */
 // PCA0 output PWM 0 and 1  duty cycle
-uint pwm_0_duty_cycle;      /*!< PCA0 output PWM pipe 0 duty cycle */
-uint pwm_1_duty_cycle;      /*!< PCA0 output PWM pipe 1 duty cycle */
+uint_t pwm_0_duty_cycle;      /*!< PCA0 output PWM pipe 0 duty cycle */
+uint_t pwm_1_duty_cycle;      /*!< PCA0 output PWM pipe 1 duty cycle */
 // timer 0 and timer 1 counts to accumulate interrupt times to indicate the rounds
-uint T2_count;             /*!< variable to count interrupt times */
+uint_t T2_count;             /*!< variable to count interrupt times */
 
 void OSCILLATOR_Init()
 {
@@ -123,25 +123,25 @@ void timer2_init()
 	ET2 = 1;
 }
 
-void set_pwm_0_duty_cycle(uint n)
+void set_pwm_0_duty_cycle(uint_t n)
 {
-	uint CEX0_Compare_Value;
+	uint_t CEX0_Compare_Value;
 	CEX0_Compare_Value = 65536 - (n * 65.536);
 
 	PCA0CPL0 = (CEX0_Compare_Value & 0x00FF);	// get low 8 bits
 	PCA0CPH0 = (CEX0_Compare_Value & 0xFF00) >> 8;	// get high 8 bits
 }
 
-void set_pwm_1_duty_cycle(uint n)
+void set_pwm_1_duty_cycle(uint_t n)
 {
-	uint CEX1_Compare_Value;
+	uint_t CEX1_Compare_Value;
 	CEX1_Compare_Value = 65536 - (n * 65.536);
 
 	PCA0CPL1 = (CEX1_Compare_Value & 0x00FF);	// get low 8 bits
 	PCA0CPH1 = (CEX1_Compare_Value & 0xFF00) >> 8;	// get high 8 bits
 }
 
-void set_wheel_0_speed(uchar n)
+void set_wheel_0_speed(uchar_t n)
 {
 	while (1)
 	{
@@ -170,7 +170,7 @@ void set_wheel_0_speed(uchar n)
 	}
 }
 
-void set_wheel_1_speed(uchar n)
+void set_wheel_1_speed(uchar_t n)
 {
 	while (1)
 	{
@@ -206,7 +206,7 @@ void set_wheel_1_speed(uchar n)
  */
 void timer2_ISR() interrupt 5
 {
-	uint x;
+	uint_t x;
 	ET2 = 0;		// disable timer2
 	T2_count++;
 	x = 10 + T2_count;
