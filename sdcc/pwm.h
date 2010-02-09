@@ -6,9 +6,9 @@
  * Maintainer: 
  * Created: Sat Nov 21 02:22:30 2009 (-0500)
  * Version: 
- * Last-Updated: Sat Feb  6 15:04:15 2010 (-0500)
+ * Last-Updated: Mon Feb  8 21:19:10 2010 (-0500)
  *           By: bigclean
- *     Update #: 6
+ *     Update #: 18
  * URL: 
  * Keywords: 
  * Compatibility: 
@@ -22,6 +22,9 @@
  */
 
 /* Change log:
+ * 8-Feb-2010    bigclean  
+ *    Last-Updated: Mon Feb  8 21:10:03 2010 (-0500) #10 (bigclean)
+ *    use SDCC macro to enable compiler differences between Keil
  * 6-Feb-2010    bigclean  
  *    Last-Updated: Sat Feb  6 15:02:56 2010 (-0500) #5 (bigclean)
  *    change doxygen syntax from QT to standard JavaDoc
@@ -52,7 +55,7 @@
  * @file pwm.c
  * @brief PWM head file
  * @author Jujie Zheng
- * @date 2010-2-6
+ * @date 2010-2-8
  */
  
 #ifndef __PWM_H_
@@ -63,6 +66,9 @@
 #include <mcs51/C8051F410.h>
 
 /* Macro definition */
+#define SDCC 1                   /*!< using SDCC compiler macro */
+#define KEIL 0                   /*!< using KEIL compiler macro */
+
 #define SYSCLK       24500000/2	 /*!< Internal oscillator frequency in Hz */
 #define TIMER_PRESCALER      12	 /*!< Based on Timer2 CKCON and TMR2CN */
 #define CAR_TOGGLE_RATE      1	 /*!< CAR toggle rate in milliseconds */
@@ -75,12 +81,25 @@
 
 // these are associated to the hardware(mainly is car),will be obsolete
 
+// SDCC compiler use different bit defintions 
+#if SDCC
 __sbit __at (0x80) IN1;      /*!< Port P0 ^ 0 */
 __sbit __at (0x81) IN2;      /*!< Port P0 ^ 1 */
 __sbit __at (0x82) IN3;      /*!< Port P0 ^ 2 */
 __sbit __at (0x83) IN4;      /*!< Port P0 ^ 3 */
+#endif
 
-/* function prototype */
+// defaulty,KEIL macro is disabled
+#if KEIL
+/*
+sbit IN1 = P0 ^ 0;
+sbit IN2 = P0 ^ 1;
+sbit IN3 = P0 ^ 2;
+sbit IN4 = P0 ^ 3;
+*/
+#endif
+
+// function prototype
 
 /** 
  * @fn OSCILLATOR_Init()

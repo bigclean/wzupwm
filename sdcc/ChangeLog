@@ -1,3 +1,7 @@
+2010-02-08  bigclean  <zhengjujie@gmail.com>
+
+	* pwm.h: use SDCC macro to eanble compiler differences between Keil
+
 2010-02-06  bigclean  <zhengjujie@gmail.com>
 
 	* pwm.c: change doxygen syntax from QT to JavaDoc.
