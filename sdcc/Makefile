@@ -57,6 +57,7 @@
 ## 
 ### Code:
 
+# TODO: enhanced echo is not for windows.
 PROJECT  := pwm-commmunicate
 # source files which main() function where is
 MAINC    := exam.c 
@@ -130,6 +131,7 @@ rebuild:clean all
 	@echo -e "\n"
 
 doc:
+	# TODO: cant't automatically detect doxygen and graphviz info.
 	@echo "---------------------------------------------------------------------"
 	@echo -e "\t$(HIGH) generate documentation using doxygen and graphviz $(LIGHT)"
 	@echo -e "\t$(HIGH) you must install doxygen and graphivz $(LIGHT)"
