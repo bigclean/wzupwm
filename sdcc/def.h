@@ -61,6 +61,8 @@
 #define __DEF_H_
 
 // \note typedef is much better than #define to define new types
+// \note Types names should follow suffix '_t' to indicate type.
+// FIXME: doxygen generate somehow fails
 // prefered type defintions style
 typedef unsigned int uint_t;    /*! 8 bits unsigned int */
 typedef unsigned char uchar_t;  /*! 8 bits unsigned char */
