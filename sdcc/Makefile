@@ -6,9 +6,9 @@
 ## Maintainer: 
 ## Created: Sat Nov 21 02:12:25 2009 (-0500)
 ## Version: 
-## Last-Updated: Sat Dec 19 16:01:30 2009 (+0800)
+## Last-Updated: Thu Feb 18 20:25:22 2010 (-0500)
 ##           By: bigclean
-##     Update #: 8
+##     Update #: 9
 ## URL: 
 ## Keywords: 
 ## Compatibility: 
@@ -18,16 +18,21 @@
 ### Commentary: 
 ##  These are the targets for this makefile:
 #    all:         generate hex and documentation
+#    build:       target refer to hex
 #    hex:         generate hex file only
 #    clean:       clean project
 #    rebuild:     clean and then build project
 #    doc:         generate documentations using doxygen and graphviz
+#    TAGS:        generate tags for source files
 
 ## 
 ## 
 ######################################################################
 ## 
 ### Change log:
+## 18-Feb-2010    bigclean  
+##    Last-Updated: Sat Dec 19 16:01:30 2009 (+0800) #8 (bigclean)
+##    add autodetection for doxygen and graphviz
 ## 19-Dec-2009    bigclean  
 ##    Last-Updated: Sat Dec 19 15:59:38 2009 (+0800) #7 (bigclean)
 ##    do some minor changes to Makefile,now compatible with gentoo.
@@ -79,16 +84,33 @@ IHEX     := $(addsuffix .ihx,$(PROJECT))
 HEX      := $(addsuffix .hex,$(PROJECT))
 
 # tools correalted to documentation generation
+# autodetection about doxygen and graphviz and display different info
+# TODO: should report warnings make when doxygen not found
+# or you can use $(shell basename `which doxygen`) to get doxygen
+ifeq ($(shell basename $(shell which doxygen)), doxygen)
+    DOXYGEN_MESSAGE := "ok,now starts to use doxygen to generate document"
+else
+    DOXYGEN_MESSAGE := "generate document fails,you must install doxygen"
+endif
+ifeq ($(shell basename $(shell which dot)), dot)
+    GRAPHVIZ_MESSAGE := "graphviz found, now will generate function call graph"
+else
+    GRAPHVIZ_MESSAGE := "graphviz not found,suggested to install"
+endif
+
 DOXYGEN  := doxygen
 DOXYFILE := pwm-doxyfile 
 RM       := rm -rf
+TAGS     := ctags -R --fields=+ialS --extra=+q
 
 # echo colorize output
 HIGH     :=\033[7m
 LIGHT    :=\033[0m
-.PHONY: all hex clean rebuild doc
+.PHONY: all hex clean rebuild doc TAGS dist
 
-all: hex doc
+all: build
+
+build:hex
 
 hex: $(HEX)
 	@echo "---------------------------------------------------------------------"
@@ -119,6 +141,7 @@ clean:
 	-$(RM)  *.hex
 	-$(RM)  *.rst
 	-$(RM)  doc
+	-$(RM) tags
 	@echo -e "\t$(HIGH) cleaning finished $(LIGHT)"
 	@echo "---------------------------------------------------------------------"
 	@echo -e "\n"
@@ -131,13 +154,19 @@ rebuild:clean all
 	@echo -e "\n"
 
 doc:
-	# TODO: cant't automatically detect doxygen and graphviz info.
 	@echo "---------------------------------------------------------------------"
-	@echo -e "\t$(HIGH) generate documentation using doxygen and graphviz $(LIGHT)"
-	@echo -e "\t$(HIGH) you must install doxygen and graphivz $(LIGHT)"
+	@echo -e "\t$(HIGH) $(DOXYGEN_MESSAGE) $(LIGHT)"
+	@echo -e "\t$(HIGH) $(GRAPHVIZ_MESSAGE) $(LIGHT)"
 	-$(DOXYGEN) $(DOXYFILE)
 	@echo -e "\t$(HIGH) html documentation generating finished $(LIGHT)"
-	@echo -e "---------------------------------------------------------------------"
+	@echo "---------------------------------------------------------------------"
 
+TAGS:
+	@echo "---------------------------------------------------------------------"
+	@echo -e "\t$(HIGH) generate tags files $(LIGHT)"
+	$(TAGS) ./
+	@echo "---------------------------------------------------------------------"
+
+dist: all doc
 ######################################################################
 ### Makefile ends here

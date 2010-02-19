@@ -1,3 +1,7 @@
+2010-02-18  bigclean  <zhengjujie@gmail.com>
+
+	* Makefile: add autodetection for doxygen and graphviz
+
 2010-02-08  bigclean  <zhengjujie@gmail.com>
 
 	* def.h: define new types to replace old ones.

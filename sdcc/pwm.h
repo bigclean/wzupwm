@@ -66,8 +66,12 @@
 #include <mcs51/C8051F410.h>
 
 /* Macro definition */
+/* FIXME: macro SDCC redefinition warning */
+#ifndef COMPILER_INDIVIDUAL
+#define COMPILER_INDIVIDUAL
 #define SDCC 1                   /*!< using SDCC compiler macro */
 #define KEIL 0                   /*!< using KEIL compiler macro */
+#endif
 
 #define SYSCLK       24500000/2	 /*!< Internal oscillator frequency in Hz */
 #define TIMER_PRESCALER      12	 /*!< Based on Timer2 CKCON and TMR2CN */

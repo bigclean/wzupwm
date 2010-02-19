@@ -1,27 +1,36 @@
 ### Makefile --- 
 ## 
 ## Filename: Makefile
-## Description: makefile for generating documentation
+## Description: project of wzupwm master makefile
 ## Author: bigclean
-## Maintainer: bigclean
-## Created: Thu Feb 18 14:37:24 2010 (-0500)
+## Maintainer: 
+## Created: Thu Feb 18 20:28:14 2010 (-0500)
 ## Version: 
-## Last-Updated: Thu Feb 18 14:38:27 2010 (-0500)
+## Last-Updated: Thu Feb 18 20:31:30 2010 (-0500)
 ##           By: bigclean
-##     Update #: 1
+##     Update #: 2
 ## URL: 
 ## Keywords: 
 ## Compatibility: 
 ## 
 ######################################################################
 ## 
-### Commentary: 
+### Commentary:
+##  These are the targets for this Makefile:
+#      all:   default target
+#      build: build hex files
+#      doc:   generate documentation
+#      clean: clean project
+#      dist:  release project
 ## 
 ## 
 ## 
 ######################################################################
 ## 
 ### Change log:
+## 18-Feb-2010    bigclean  
+##    Last-Updated: Thu Feb 18 20:31:03 2010 (-0500) #1 (bigclean)
+##    first initial, needs to be consummated.
 ## 
 ## 
 ######################################################################
@@ -46,39 +55,46 @@
 ### Code:
 
 
-# all rst format sources
-RST_SRCS     := $(wildcard *.rst) 
-RST_HTML_OUT := $(patsubst %.rst, %.html, $(RST_SRCS))
-# all markdown format sources
-MKD_SRCS     := $(wildcard *mkd)
-MKD_HTML_OUT := $(patsubst %.mkd, %.html, $(MKD_SRCS))
-HTML_OUT     := $(RST_HTML_OUT) $(MKD_HTML_OUT)
-RM           := rm
-# FIXME: can't process right on windows
-# in windows, it's rst2html.py
-RST2HTML     := rst2html
-# in windows, maybe markdown.pl pr others
-MARKDOWN     := markdown
+# global Makefile for project
+# TODO: control two individual Makefiles and can pass inndividual
+#       arguments to targets. 
 
-.PHONY: all html clean doc 
+PROJECT   := wzupwm
+VERSION   := 0.1
+DIRECTORY := $(PROJECT)-$(VERSION)
+MAKE      := make
+MAKECLEAN := make clean
+MAKEDOC   := make doc
+MAKEDIST  := make dist
+MAKEBUILD := make build
+CP        := cp -ir
+MKDIR     := mkdir -v
+RM        := rm -rf
+MV        := mv -if
+TAR       := tar -cjf
 
-all: html
-html: $(HTML_OUT)
-%.html: %.rst
-	$(RST2HTML) --time --source-link --generator --toc-top-backlinks \
-	    --cloak-email-address $< $@
+.PHONY: all doc test build test clean 
 
-%.html: %.mkd
-	$(MARKDOWN) $< > $@
+all: build
+
+doc:
+	$(MAKE) -C doc
+	$(MAKEDOC) -C sdcc
+build:
+	$(MAKEBUILD) -C sdcc
+
+dist: all doc
+	$(MKDIR) ../$(DIRECTORY)
+	$(CP) * ../$(DIRECTORY)
+	$(TAR) $(DIRECTORY).tar.bz2 ../$(DIRECTORY)
+	$(RM) ../$(DIRECTORY)
+	$(MV) $(DIRECTORY).tar.bz2 ../
 
 clean:
-	@echo "start to clean"
-	@echo $(RST_SRCS)
-	@echo $(MKD_SRCS)
-	@echo $(RST_HTML_OUT)
-	@echo $(MKD_HTML_OUT)
-	-$(RM) $(HTML_OUT)
-	@echo "clean is finished"
+	$(MAKECLEAN) -C doc
+	$(MAKECLEAN) -C sdcc
+test:
+	@echo $(PATH)
 
 ######################################################################
 ### Makefile ends here
