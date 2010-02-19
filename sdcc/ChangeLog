@@ -1,6 +1,8 @@
 2010-02-18  bigclean  <zhengjujie@gmail.com>
 
-	* Makefile: add autodetection for doxygen and graphviz
+	* Makefile: 1. add autodetection for doxygen and graphviz
+	            2. different actions when autodetect doxygen and graphviz
+	               not found.
 
 2010-02-08  bigclean  <zhengjujie@gmail.com>
 

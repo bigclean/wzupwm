@@ -6,9 +6,9 @@
 ## Maintainer: 
 ## Created: Sat Nov 21 02:12:25 2009 (-0500)
 ## Version: 
-## Last-Updated: Thu Feb 18 20:25:22 2010 (-0500)
+## Last-Updated: Thu Feb 18 23:51:20 2010 (-0500)
 ##           By: bigclean
-##     Update #: 9
+##     Update #: 10
 ## URL: 
 ## Keywords: 
 ## Compatibility: 
@@ -31,6 +31,9 @@
 ## 
 ### Change log:
 ## 18-Feb-2010    bigclean  
+##    Last-Updated: Thu Feb 18 20:25:22 2010 (-0500) #9 (bigclean)
+##    different actions to doxygen and grapviz not found.
+## 18-Feb-2010    bigclean  
 ##    Last-Updated: Sat Dec 19 16:01:30 2009 (+0800) #8 (bigclean)
 ##    add autodetection for doxygen and graphviz
 ## 19-Dec-2009    bigclean  
@@ -50,7 +53,7 @@
 ## 
 ## This program is distributed in the hope that it will be useful,
 ## but WITHOUT ANY WARRANTY; without even the implied warranty of
-## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 ## General Public License for more details.
 ## 
 ## You should have received a copy of the GNU General Public License
@@ -63,6 +66,7 @@
 ### Code:
 
 # TODO: enhanced echo is not for windows.
+SHELL    := /bin/sh
 PROJECT  := pwm-commmunicate
 # source files which main() function where is
 MAINC    := exam.c 
@@ -84,20 +88,8 @@ IHEX     := $(addsuffix .ihx,$(PROJECT))
 HEX      := $(addsuffix .hex,$(PROJECT))
 
 # tools correalted to documentation generation
-# autodetection about doxygen and graphviz and display different info
-# TODO: should report warnings make when doxygen not found
-# or you can use $(shell basename `which doxygen`) to get doxygen
-ifeq ($(shell basename $(shell which doxygen)), doxygen)
-    DOXYGEN_MESSAGE := "ok,now starts to use doxygen to generate document"
-else
-    DOXYGEN_MESSAGE := "generate document fails,you must install doxygen"
-endif
-ifeq ($(shell basename $(shell which dot)), dot)
-    GRAPHVIZ_MESSAGE := "graphviz found, now will generate function call graph"
-else
-    GRAPHVIZ_MESSAGE := "graphviz not found,suggested to install"
-endif
-
+DOXYGEN_MESSAGE  := generate document fails,you must install doxygen
+GRAPHVIZ_MESSAGE := graphviz not found,suggested to install
 DOXYGEN  := doxygen
 DOXYFILE := pwm-doxyfile 
 RM       := rm -rf
@@ -155,8 +147,23 @@ rebuild:clean all
 
 doc:
 	@echo "---------------------------------------------------------------------"
-	@echo -e "\t$(HIGH) $(DOXYGEN_MESSAGE) $(LIGHT)"
-	@echo -e "\t$(HIGH) $(GRAPHVIZ_MESSAGE) $(LIGHT)"
+	@echo -e "\t$(HIGH) generate document started. $(LIGHT)"
+# autodetection about doxygen and graphviz and display different info
+# report error when doxygen not found and warning when graphviz not found
+# TODO: autodetection still does not work in windows because devil path
+#       process.
+# FIXME:maybe command $(shell basename $(shell which doxygen | sed
+#       's:\\:/:g')) still needs to be tested.
+# if doxygen is not installed or found
+# or you can use $(shell basename `which doxygen`) to get doxygen
+ifneq ($(shell basename $(shell which doxygen)), doxygen)
+	$(error $(DOXYGEN_MESSAGE))
+endif
+
+# if graphviz(dot) not installed or found
+ifneq ($(shell basename $(shell which dot)), dot)
+	$(warning $(GRAPHVIZ_MESSAGE))
+endif
 	-$(DOXYGEN) $(DOXYFILE)
 	@echo -e "\t$(HIGH) html documentation generating finished $(LIGHT)"
 	@echo "---------------------------------------------------------------------"
