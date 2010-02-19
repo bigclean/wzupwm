@@ -6,9 +6,9 @@
 ## Maintainer: 
 ## Created: Sat Nov 21 02:12:25 2009 (-0500)
 ## Version: 
-## Last-Updated: Thu Feb 18 23:51:20 2010 (-0500)
+## Last-Updated: Fri Feb 19 12:45:23 2010 (-0500)
 ##           By: bigclean
-##     Update #: 10
+##     Update #: 12
 ## URL: 
 ## Keywords: 
 ## Compatibility: 
@@ -30,6 +30,9 @@
 ######################################################################
 ## 
 ### Change log:
+## 19-Feb-2010    bigclean  
+##    Last-Updated: Thu Feb 18 23:51:20 2010 (-0500) #10 (bigclean)
+##    some tricks to process doxygen and graphviz windows path
 ## 18-Feb-2010    bigclean  
 ##    Last-Updated: Thu Feb 18 20:25:22 2010 (-0500) #9 (bigclean)
 ##    different actions to doxygen and grapviz not found.
@@ -86,8 +89,10 @@ OBJS     := $(patsubst %.c,%.rel,$(SRCS))
 # hex files and intel hex files format generated finally
 IHEX     := $(addsuffix .ihx,$(PROJECT))
 HEX      := $(addsuffix .hex,$(PROJECT))
+CLEAN    := $(OBJS) $(IHEX) $(HEX)
 
 # tools correalted to documentation generation
+# doxygen and graphviz messages
 DOXYGEN_MESSAGE  := generate document fails,you must install doxygen
 GRAPHVIZ_MESSAGE := graphviz not found,suggested to install
 DOXYGEN  := doxygen
@@ -108,7 +113,6 @@ hex: $(HEX)
 	@echo "---------------------------------------------------------------------"
 	@echo -e "\t$(HIGH) HEX files is generated,now you can burn it!$(LIGHT)"
 	@echo "---------------------------------------------------------------------"
-	@echo -e "\n"
 
 $(HEX):$(IHEX)
 	packihx $(IHEX) > $(HEX)
@@ -122,46 +126,44 @@ $(IHEX): $(OBJS)
 clean:
 	@echo "---------------------------------------------------------------------"
 	@echo -e "\t$(HIGH) cleaning started. $(LIGHT)"
-	-$(RM)  *.rel
+	-$(RM)  $(CLEAN)
 	-$(RM)  *.asm
 	-$(RM)  *.lst
 	-$(RM)  *.sym
 	-$(RM)  *.map
 	-$(RM)  *.lnk
 	-$(RM)  *.mem
-	-$(RM)  *.ihx
-	-$(RM)  *.hex
 	-$(RM)  *.rst
 	-$(RM)  doc
-	-$(RM) tags
+	-$(RM)  tags
 	@echo -e "\t$(HIGH) cleaning finished $(LIGHT)"
 	@echo "---------------------------------------------------------------------"
-	@echo -e "\n"
 
 rebuild:clean all
 	@echo "---------------------------------------------------------------------"
 	@echo -e "\n"
 	@echo -e "\t$(HIGH) rebuild finished $(LIGHT)"
 	@echo "---------------------------------------------------------------------"
-	@echo -e "\n"
 
 doc:
 	@echo "---------------------------------------------------------------------"
 	@echo -e "\t$(HIGH) generate document started. $(LIGHT)"
 # autodetection about doxygen and graphviz and display different info
 # report error when doxygen not found and warning when graphviz not found
-# TODO: autodetection still does not work in windows because devil path
-#       process.
-# FIXME:maybe command $(shell basename $(shell which doxygen | sed
-#       's:\\:/:g')) still needs to be tested.
-# if doxygen is not installed or found
+# FIXME: maybe command "ifeq ($(shell basename $(shell which doxygen | sed
+#        's:\\:/:g')), )" still needs to be tested,so devil path process.
+#        it seems that doxygen and graphviz can not be install in default
+#        'Program Files' directory
+# XXX:  use some tricks to process windows devil path, even if path
+#       can not processed, at least it wasn't blank.
 # or you can use $(shell basename `which doxygen`) to get doxygen
-ifneq ($(shell basename $(shell which doxygen)), doxygen)
+# exit make when doxygen not found
+ifeq ($(shell basename $(shell which doxygen)), )
 	$(error $(DOXYGEN_MESSAGE))
 endif
 
-# if graphviz(dot) not installed or found
-ifneq ($(shell basename $(shell which dot)), dot)
+# report warnings when graphviz not found
+ifeq ($(shell basename $(shell which dot)), )
 	$(warning $(GRAPHVIZ_MESSAGE))
 endif
 	-$(DOXYGEN) $(DOXYFILE)
