@@ -1,7 +1,7 @@
 /**
  @file uart.c
  @brief uart implementation
- @date 2010-03-22
+ @date 2010-04-09
  */
 
 #include "uart.h"
@@ -10,7 +10,7 @@ void UART0_Init(void)
 {
         /**
          @todo setup SCON0
-         @li mode 1, 9 bits UART
+         @li mode 1, 8 bits UART
          @li enable set RI0 and generate interuppt when 9th bit is 1
          @li disable RX
          @li 9th bit is 0

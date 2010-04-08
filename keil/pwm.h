@@ -1,7 +1,7 @@
 /**
  @file PWM.h
  @brief PWM head file
- @date 2010-03-22
+ @date 2010-04-09
  */
  
 #ifndef __PWM_H_
@@ -9,10 +9,10 @@
 
 #include "def.h"
 #include <c8051F410.h>
-#define SYSCLK       24500000/2 /*!< Internal oscillator frequency in Hz */
-#define TIMER_PRESCALER      12 /*!< Based on Timer2 CKCON and TMR2CN */
+#define SYSCLK       24500000/2 /**< Internal oscillator frequency in Hz */
+#define TIMER_PRESCALER      12 /**< Based on Timer2 CKCON and TMR2CN */
 
-#define TIMER_TICKS_PER_MS  SYSCLK/TIMER_PRESCALER/1000 /*!< the ticks in 1ms for timer clock*/
+#define TIMER_TICKS_PER_MS  SYSCLK/TIMER_PRESCALER/1000 /** the ticks in 1ms for timer clock*/
 #define AUX1     TIMER_TICKS_PER_MS
 #define AUX2     65536 - AUX1
 #define TIMER2_reload_low      (AUX2 & 0x00FF)

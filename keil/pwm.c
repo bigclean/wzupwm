@@ -1,22 +1,22 @@
 /**
  @file PWM.c
  @brief PWM implementation 
- @date 2010-03-22
+ @date 2010-04-09
  */
 
 #include "pwm.h"
 // global variables
-uint motor_speed;          /*!< motor speed */
-uint pwm_duty_cycle;      /*!< PCA0 output PWM pipe 0 duty cycle */
-// timer 0 and timer 1 counts to accumulate interrupt times to indicate the rounds
-uint T2_count;             /*!< variable to count interrupt times */
-
+//uint motor_speed;          /**< motor speed */
+uint pwm_duty_cycle;      /**< PCA0 output PWM module 0 duty cycle */
+uint T2_count;             /**< variable to count interrupt times */
+extern xdata uchar motor_speed[6];       /**< transimitted speed data to be processed */
+extern xdata uchar transmit_index;   /**< index variable used in transmitting speed data */
 void OSCILLATOR_Init()
 {
         //OSCICN = 0x86;          // Set internal oscillator to run at maximum frequency/2;
         /**
          @note
-         @li C8051F use internal oscillator as system clock defaultly
+         @li C8051F410 use internal oscillator as system clock defaultly
          @li configure system clock is maximum frequency/8
          */
         OSCICN = 0x84;
@@ -113,13 +113,14 @@ void change_motor_speed(uchar speed, motor_control action, uint step)
  */
 void timer2_ISR() interrupt 5
 {
-        uint x;
+        //uint x;
         ET2 = 0; // disable timer2
         T2_count++;
-        x = 10 + T2_count;
+        //x = 10 + T2_count;
         if (T2_count == 1000) // 1 s has been counted
         {
-                motor_speed = TH0 * 256 + TL0; // motor rounds in one second
+                // timer 0 counts to accumulate interrupt times to indicate the rounds
+                motor_speed[transmit_index++] = TH0 * 256 + TL0; // motor rounds in one second
                 TL0 = 0;
                 TH0 = 0;
         }

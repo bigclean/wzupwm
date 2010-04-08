@@ -1,15 +1,15 @@
 /**
  @file motor.c
  @brief motor control via UART0 communication
- @date 2010-03-22
+ @date 2010-04-09
  */
 
 #include "uart.h"
 #include "pwm.h"
 
 extern xdata uchar motor_speed[6];       /**< transimitted speed data to be processed */
-xdata uchar motor_control;      /**< store received control signal */
-xdata uchar k;   /**< index variable used in transmitting speed data */
+xdata motor_control motor_control_signal;      /**< store received control signal */
+extern xdata uchar transmit_index;   /**< index variable used in transmitting speed data */
 enum {
     motor_speed_length = 6
 };
@@ -32,14 +32,20 @@ void main()
         timer0_init();
         timer2_init();
         EA = 1;
-        k = 0;
-        SBUF0 = motor_speed[k];  // start to transmit data
         while (1)
         {
-                if(k >= motor_speed_length)
+                // system has collected refered length data to transmit
+                if (transmit_index == motor_speed_length - 1)
+                {
+                        // reset index zero to ready to transmit data
+                        transmit_index = 0;
+                        SBUF0 = motor_speed[transmit_index];
+                }
+                // system has finished process of transmitting data
+                if (transmit_index == motor_speed_length)
                 {
                         TR1 = 0;        // disable timer1 and stop transmitting data
-                        k = 0; // reset index k
+                        transmit_index = 0; // reset index to zero
                 }
         }
 }
@@ -55,13 +61,12 @@ void UART0_ISR() interrupt 4
                 motor_control_signal = SBUF0; // store received control signal
                 change_motor_speed(motor_speed, motor_control_signal, 5); // default step is constant 5
                 TR1 = 1;        // enable timer1 and next turn of transmitting
-                SCON0 &= 0xfe;
+                SCON0 &= 0xfe; // clear RI0 manually 
         }
         // transmit speed data interrupt TI0
         if (SCON0 & 0x02)
         {
-                k++;
-                SBUF0 = motor_speed[k];
-                SCON0 &= 0xfd;
+                SBUF0 = motor_speed[transmit_index++];
+                SCON0 &= 0xfd; // clear TI0 manually
         }
 }
